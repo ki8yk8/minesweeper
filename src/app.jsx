@@ -4,6 +4,9 @@ import Minesweeper from "./components/minesweeper/minesweeper";
 import Modal from "./ui/modals/modal";
 import Controls from "./components/controls/controls";
 import { CoinContext } from "./contexts/coin-context";
+import { DIFFICULTY_MAP } from "./helpers/minesweeper";
+import { BsCoin } from "react-icons/bs";
+import { PiCoinBold } from "react-icons/pi";
 
 export default function App() {
 	const [show_modal, set_show_modal] = useState({
@@ -11,10 +14,13 @@ export default function App() {
 		gamewin: false,
 	});
 	const [reset, set_reset] = useState(false);
+	const [level, set_level] = useState("easy");
 	const { coins, set_coins } = useContext(CoinContext);
 
 	function handleGameWin() {
+		const bombs = DIFFICULTY_MAP[level].mines;
 		set_show_modal((prev) => ({ ...prev, gamewin: true }));
+		set_coins((prev) => prev + bombs);
 	}
 
 	function handleGameLose() {
@@ -39,7 +45,8 @@ export default function App() {
 					className="u-font-weight-semi-bold"
 					style={{ color: "var(--color-orange-peel)" }}
 				>
-					Coins: {coins}
+					<PiCoinBold size="1.5rem" style={{ marginBottom: -6 }} /> Coins:{" "}
+					{coins}
 				</p>
 			</header>
 
@@ -68,7 +75,7 @@ export default function App() {
 					>
 						<div style={{ overflow: "auto" }}>
 							<Minesweeper
-								level="easy"
+								level={level}
 								onWin={handleGameWin}
 								onLose={handleGameLose}
 								reset={reset}
@@ -95,7 +102,26 @@ export default function App() {
 					set_show_modal((prev) => ({ ...prev, gamewin: false }));
 				}}
 			>
-				Congratulations! You Won
+				<>
+					<h3
+						className="u-text-center"
+						style={{
+							color: "var(--color-dark-pastel-green)",
+							marginBottom: "1rem",
+						}}
+					>
+						Congratulations!
+					</h3>
+					<p className="u-text-center" style={{ paddingBottom: "2rem" }}>
+						You Won:{" "}
+						<span
+							style={{ color: "var(--color-orange-peel)" }}
+							className="u-font-weight-semi-bold"
+						>
+							+{DIFFICULTY_MAP[level].mines} coins
+						</span>
+					</p>
+				</>
 			</Modal>
 		</>
 	);
