@@ -38,8 +38,10 @@ export default function Controls({ onRestart, onLevelChange }) {
 					<div>
 						{Array(level)
 							.fill(null)
-							.map((_) => (
-								<span className="u-font-emoji">🔥</span>
+							.map((_, index) => (
+								<span key={index} className="u-font-emoji">
+									🔥
+								</span>
 							))}
 					</div>
 					<button onClick={handleIncrement.bind(null, 1)}>+</button>

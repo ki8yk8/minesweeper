@@ -50,9 +50,10 @@ export default function PowerupBar() {
 								<FaRegCircleQuestion />
 							</button>
 							<button
-								style={{ fontSize: "0.8rem", width: "100%", textAlign: "left" }}
+								style={{ width: "100%", textAlign: "left" }}
 							>
-								{item}
+								<p style={{fontSize: "0.8rem"}}>{item}</p>
+								<small style={{display: "block", fontSize: "0.6rem"}}>-{POWERUPS[item].coin} coins</small>
 							</button>
 						</div>
 					))}
