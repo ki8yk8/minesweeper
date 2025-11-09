@@ -5,7 +5,7 @@ export default function App() {
 	return (
 		<>
 			<h1>Minesweeper</h1>
-			<Minesweeper level="easy" />
+			<Minesweeper level="medium" />
 		</>
 	);
 }
