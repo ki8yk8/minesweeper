@@ -1,0 +1,12 @@
+.game {
+	display: flex;
+	flex-direction: column;
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: hidden;
+}
+
+.game .game_wrapper {
+	flex-grow: 1;
+	overflow: auto;
+}

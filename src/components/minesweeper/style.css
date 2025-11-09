@@ -1,9 +1,8 @@
-.minesweeper__row {
-	display: flex;
-	flex-direction: row;
+.minesweeper {
+	display: grid;
 }
 
-.minesweeper__row__cell {
+.minesweeper__cell {
 	display: block;
 	width: 50px;
 	height: 50px;

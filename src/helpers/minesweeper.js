@@ -10,8 +10,8 @@ export const DIFFICULTY_MAP = {
 		mines: 40,
 	},
 	hard: {
-		height: 30,
 		width: 16,
+		height: 30,
 		mines: 99,
 	},
 };
@@ -63,8 +63,8 @@ export default function createMinesweeper(difficulty, debug = false) {
 		random_indices.push(rnd);
 	}
 	const random_indices_2d = random_indices.map((index) => [
-		Math.floor(index / width),
 		index % width,
+		Math.floor(index / width),
 	]);
 
 	random_indices_2d.forEach((index) => {

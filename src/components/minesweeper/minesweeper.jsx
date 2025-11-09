@@ -4,7 +4,7 @@ import createMinesweeper, {
 	get_neighbourhood,
 } from "../../helpers/minesweeper";
 import "./style.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 // mines type mine, empty, 1...8,
 export default function Minesweeper({ level = "easy", onOver }) {
@@ -47,21 +47,26 @@ export default function Minesweeper({ level = "easy", onOver }) {
 	};
 
 	return (
-		<section className="minesweeper">
+		<section className="minesweeper" style={{
+			gridTemplateColumns: `repeat(${mines_array[0].length}, 50px)`,
+			gridTemplateRows: `repeat(${mines_array.length}), 50px`,
+		}}>
 			{mines_array.map((row, y) => (
-				<div className="minesweeper__row" key={y}>
+				<React.Fragment key={y}>
 					{row.map((item, x) => (
 						<button
-							className="minesweeper__row__cell"
+							className="minesweeper__cell"
 							style={{ backgroundColor: mask[y][x] ? "red" : "initial" }}
 							key={x}
 							onClick={handle_btn_clicked.bind(null, x, y)}
 						>
-							{item !== "empty" && item !== "mine" && mask[y][x] && <span>{item}</span>}
+							{item !== "empty" && item !== "mine" && mask[y][x] && (
+								<span>{item}</span>
+							)}
 							{item === "mine" && reveal && <FaBomb size="1.5rem" />}
 						</button>
 					))}
-				</div>
+				</React.Fragment>
 			))}
 		</section>
 	);
