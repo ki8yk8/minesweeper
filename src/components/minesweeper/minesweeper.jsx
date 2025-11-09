@@ -18,7 +18,7 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 		set_mask(createMask(level));
 		set_active(true);
 		set_reveal(false);
-	}, [reset]);
+	}, [reset, level]);
 
 	function unravelCell(mask, x, y) {
 		if (mask[y][x] === false && mines_array[y][x] !== "mine") {

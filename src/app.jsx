@@ -30,6 +30,9 @@ export default function App() {
 	function handleGameRestart() {
 		set_reset((prev) => !prev);
 	}
+	function handleLevelChange(level) {
+		set_level(level);
+	}
 
 	return (
 		<>
@@ -62,7 +65,10 @@ export default function App() {
 						gap: "1rem",
 					}}
 				>
-					<Controls onRestart={handleGameRestart} />
+					<Controls
+						onRestart={handleGameRestart}
+						onLevelChange={handleLevelChange}
+					/>
 
 					<div
 						style={{
