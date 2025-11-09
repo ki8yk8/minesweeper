@@ -1,19 +1,21 @@
-import { useState } from "react";
 import { VscDebugRestart } from "react-icons/vsc";
 import { DIFFICULTY_MAP } from "../../helpers/minesweeper";
+import { useContext } from "react";
+import { GameContext } from "../../contexts/game-context";
 
-export default function Controls({ onRestart, onLevelChange }) {
-	const [level, set_level] = useState(1);
+export default function Controls() {
+	const { game, set_game } = useContext(GameContext);
 
 	function handleIncrement(step = 1) {
-		set_level((prev) => {
+		set_game((prev) => {
+			const level = Object.keys(DIFFICULTY_MAP).indexOf(prev.level);
+
 			const new_level = Math.max(
-				1,
-				Math.min(prev + step, Object.keys(DIFFICULTY_MAP).length)
+				0,
+				Math.min(level + step, Object.keys(DIFFICULTY_MAP).length - 1)
 			);
 
-			onLevelChange?.(Object.keys(DIFFICULTY_MAP)[new_level - 1]);
-			return new_level;
+			return { ...prev, level: Object.keys(DIFFICULTY_MAP)[new_level] };
 		});
 	}
 
@@ -36,7 +38,7 @@ export default function Controls({ onRestart, onLevelChange }) {
 				<div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
 					<button onClick={handleIncrement.bind(null, -1)}>-</button>
 					<div>
-						{Array(level)
+						{Array(game.level)
 							.fill(null)
 							.map((_, index) => (
 								<span key={index} className="u-font-emoji">
@@ -48,7 +50,11 @@ export default function Controls({ onRestart, onLevelChange }) {
 				</div>
 			</div>
 
-			<button onClick={onRestart}>
+			<button
+				onClick={() =>
+					set_game((prev) => ({ ...prev, restart: !prev.restart }))
+				}
+			>
 				<VscDebugRestart />
 			</button>
 		</nav>

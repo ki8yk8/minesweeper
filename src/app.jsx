@@ -27,12 +27,6 @@ export default function App() {
 		set_show_modal((prev) => ({ ...prev, gameover: true }));
 	}
 
-	function handleGameRestart() {
-		set_game((prev) => ({ ...prev, reset: !prev.reset }));
-	}
-	function handleLevelChange(level) {
-		set_game((prev) => ({ ...prev, level }));
-	}
 	function handlePowerupBuy(powerup) {
 		if (powerup === "Extra Life") {
 			set_game((prev) => ({ ...prev, life: prev.life + 1 }));
@@ -72,10 +66,7 @@ export default function App() {
 						gap: "1rem",
 					}}
 				>
-					<Controls
-						onRestart={handleGameRestart}
-						onLevelChange={handleLevelChange}
-					/>
+					<Controls />
 
 					<div
 						style={{
