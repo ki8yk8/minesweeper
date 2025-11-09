@@ -11,7 +11,7 @@ export default function Minesweeper({ level = "easy", onWin, onLose }) {
 	const [mines_array, set_mines_array] = useState(createMinesweeper(level));
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
-	const [reveal, set_reveal] = useState(true);
+	const [reveal, set_reveal] = useState(false);
 
 	function unravelCell(mask, x, y) {
 		if (mask[y][x] === false && mines_array[y][x] !== "mine") {
@@ -46,8 +46,15 @@ export default function Minesweeper({ level = "easy", onWin, onLose }) {
 
 	const handle_btn_clicked = (x, y) => {
 		if (!active) return;
+
 		if (isGameWon(mask, mines_array, [x, y])) {
 			onWin?.();
+		}
+		if (mines_array[y][x] === "mine") {
+			onLose?.();
+			set_active(false);
+			set_reveal(true);
+			return;
 		}
 
 		set_mask((prev) => {
@@ -59,9 +66,6 @@ export default function Minesweeper({ level = "easy", onWin, onLose }) {
 				unravelCell(updated_mask, x, y);
 			} else if (mines_array[y][x] === "mine") {
 				updated_mask[y][x] = true;
-				onLose?.();
-				set_active(false);
-				set_reveal(true);
 			} else {
 				updated_mask[y][x] = true;
 			}
