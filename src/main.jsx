@@ -7,11 +7,14 @@ import "./stylesheets/component.css";
 import "./index.css";
 import App from "./app.jsx";
 import { CoinContextProvider } from "./contexts/coin-context.jsx";
+import { GameContextProvider } from "./contexts/game-context.jsx";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<CoinContextProvider>
-			<App />
-		</CoinContextProvider>
+		<GameContextProvider>
+			<CoinContextProvider>
+				<App />
+			</CoinContextProvider>
+		</GameContextProvider>
 	</StrictMode>
 );

@@ -7,18 +7,18 @@ import { CoinContext } from "./contexts/coin-context";
 import { DIFFICULTY_MAP } from "./helpers/minesweeper";
 import { PiCoinBold } from "react-icons/pi";
 import PowerupBar from "./ui/powerup-bar/powerup-bar";
+import { GameContext } from "./contexts/game-context";
 
 export default function App() {
 	const [show_modal, set_show_modal] = useState({
 		gameover: false,
 		gamewin: false,
 	});
-	const [reset, set_reset] = useState(false);
-	const [level, set_level] = useState("easy");
 	const { coins, set_coins } = useContext(CoinContext);
+	const { game, set_game } = useContext(GameContext);
 
 	function handleGameWin() {
-		const bombs = DIFFICULTY_MAP[level].mines;
+		const bombs = DIFFICULTY_MAP[game.level].mines;
 		set_show_modal((prev) => ({ ...prev, gamewin: true }));
 		set_coins((prev) => prev + bombs);
 	}
@@ -28,10 +28,10 @@ export default function App() {
 	}
 
 	function handleGameRestart() {
-		set_reset((prev) => !prev);
+		set_game((prev) => ({ ...prev, reset: !prev.reset }));
 	}
 	function handleLevelChange(level) {
-		set_level(level);
+		set_game((prev) => ({ ...prev, level }));
 	}
 
 	return (
@@ -81,10 +81,10 @@ export default function App() {
 					>
 						<div style={{ overflow: "auto" }}>
 							<Minesweeper
-								level={level}
+								level={game.level}
 								onWin={handleGameWin}
 								onLose={handleGameLose}
-								reset={reset}
+								reset={game.reset}
 							/>
 						</div>
 						<PowerupBar />
@@ -133,7 +133,7 @@ export default function App() {
 							style={{ color: "var(--color-orange-peel)" }}
 							className="u-font-weight-semi-bold"
 						>
-							+{DIFFICULTY_MAP[level].mines} coins
+							+{DIFFICULTY_MAP[game.level].mines} coins
 						</span>
 					</p>
 				</>
