@@ -18,7 +18,3 @@
 .minesweeper__cell:hover {
 	border: 2px solid var(--color-rich-black);
 }
-
-.minesweeper__cell {
-
-}

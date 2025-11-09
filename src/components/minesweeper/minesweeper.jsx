@@ -7,11 +7,11 @@ import "./style.css";
 import React, { useState } from "react";
 
 // mines type mine, empty, 1...8,
-export default function Minesweeper({ level = "easy", onOver }) {
+export default function Minesweeper({ level = "easy", onWin, onLose }) {
 	const [mines_array, set_mines_array] = useState(createMinesweeper(level));
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
-	const [reveal, set_reveal] = useState(false);
+	const [reveal, set_reveal] = useState(true);
 
 	function unravelCell(mask, x, y) {
 		if (mask[y][x] === false && mines_array[y][x] !== "mine") {
@@ -23,8 +23,34 @@ export default function Minesweeper({ level = "easy", onOver }) {
 		}
 	}
 
+	function isGameWon(mask, mines_array, current) {
+		const c_index = current[1] * mask[0].length + current[0];
+		const [x, y] = current;
+
+		const flat_mask = mask.flat();
+
+		if (mines_array[y][x] === "mine") return false;
+
+		const untouched_non_mines = mines_array.flat().filter((item, index) => {
+			if (index === c_index) return false;
+
+			if (flat_mask[index]) return false;
+
+			if (item === "mine") return false;
+
+			return true;
+		});
+		console.log(untouched_non_mines);
+
+		return untouched_non_mines.length === 0;
+	}
+
 	const handle_btn_clicked = (x, y) => {
 		if (!active) return;
+		if (isGameWon(mask, mines_array, [x, y])) {
+			console.log("Game win");
+			onWin?.();
+		}
 
 		set_mask((prev) => {
 			if (prev[y][x]) return prev;
@@ -35,7 +61,7 @@ export default function Minesweeper({ level = "easy", onOver }) {
 				unravelCell(updated_mask, x, y);
 			} else if (mines_array[y][x] === "mine") {
 				updated_mask[y][x] = true;
-				onOver?.();
+				onLose?.();
 				set_active(false);
 				set_reveal(true);
 			} else {

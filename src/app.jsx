@@ -4,7 +4,11 @@ import Minesweeper from "./components/minesweeper/minesweeper";
 import Modal from "./ui/modals/modal";
 
 export default function App() {
-	const [show_gameover, set_showgameover] = useState(true);
+	const [gameover_msg, set_gameover_msg] = useState(false);
+
+	function handleGameOver() {
+		show_gameover(true);
+	}
 
 	return (
 		<main className="game">
@@ -12,10 +16,7 @@ export default function App() {
 			<section className="game_wrapper">
 				<Minesweeper level="easy" />
 			</section>
-			<Modal
-				isOpen={show_gameover}
-				onClose={set_showgameover.bind(null, false)}
-			>
+			<Modal isOpen={gameover_msg} onClose={set_gameover_msg.bind(null, false)}>
 				Hello World
 			</Modal>
 		</main>
