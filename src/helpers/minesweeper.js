@@ -61,7 +61,11 @@ export function get_cross(x, y, width, height) {
 }
 
 // minesweeper cell types = "empty", "mine", <1, 2, ...>
-export default function createMinesweeper(difficulty, debug = false) {
+export default function createMinesweeper(
+	difficulty,
+	rnd_index = null,
+	debug = false
+) {
 	const { width, height, mines } = DIFFICULTY_MAP[difficulty];
 
 	const mines_array = Array(height)
@@ -72,7 +76,7 @@ export default function createMinesweeper(difficulty, debug = false) {
 	while (random_indices.length < mines) {
 		const rnd = Math.floor(Math.random() * width * height);
 
-		if (random_indices.includes(rnd)) continue;
+		if (random_indices.includes(rnd) || rnd === rnd_index) continue;
 		random_indices.push(rnd);
 	}
 	const random_indices_2d = random_indices.map((index) => [

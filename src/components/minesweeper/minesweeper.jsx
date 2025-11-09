@@ -102,6 +102,22 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 
 		if (powerup) {
 			switch (powerup) {
+				case "Safe Start":
+					// check if this is the start
+					const flat_mask = mask.flat();
+					const touched_cell = flat_mask.filter((item) => item);
+					if (touched_cell.length > 0) break;
+
+					set_mines_array(createMinesweeper(level, x * mask[0].length + y));
+					set_mask((prev) => {
+						const copied = structuredClone(prev);
+						copied[y][x] = true;
+
+						return copied;
+					});
+					set_powerup(null);
+					return;
+
 				case "Radar Pulse":
 					set_mask((prev) => {
 						const copied = structuredClone(prev);

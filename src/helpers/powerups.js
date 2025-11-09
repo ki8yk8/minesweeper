@@ -2,7 +2,7 @@ export const POWERUPS = {
 	"Safe Start": {
 		coin: 1,
 		description:
-			"Guarantees that your first click is empty and reveals a region",
+			"Guarantees that your first click is empty and reveals a region. Be aware this will be used only at first move. So, after that buying this won't be of any use to you.",
 	},
 	"Mine Detector": {
 		coin: 2,
