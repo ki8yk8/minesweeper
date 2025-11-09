@@ -1,5 +1,9 @@
 .minesweeper {
 	display: grid;
+	width: fit-content;
+	gap: 2px 2px;
+	background-color: var(--color-rich-black);
+	border: 2px solid var(--color-rich-black);
 }
 
 .minesweeper__cell {
@@ -7,4 +11,14 @@
 	width: 50px;
 	height: 50px;
 	padding: 0;
+	background-color: var(--color-baby-powder);
+	border: none;
+}
+
+.minesweeper__cell:hover {
+	border: 2px solid var(--color-rich-black);
+}
+
+.minesweeper__cell {
+
 }

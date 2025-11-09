@@ -47,23 +47,35 @@ export default function Minesweeper({ level = "easy", onOver }) {
 	};
 
 	return (
-		<section className="minesweeper" style={{
-			gridTemplateColumns: `repeat(${mines_array[0].length}, 50px)`,
-			gridTemplateRows: `repeat(${mines_array.length}), 50px`,
-		}}>
+		<section
+			className="minesweeper"
+			style={{
+				gridTemplateColumns: `repeat(${mines_array[0].length}, 50px)`,
+				gridTemplateRows: `repeat(${mines_array.length}, 50px)`,
+			}}
+		>
 			{mines_array.map((row, y) => (
 				<React.Fragment key={y}>
 					{row.map((item, x) => (
 						<button
 							className="minesweeper__cell"
-							style={{ backgroundColor: mask[y][x] ? "red" : "initial" }}
+							style={{
+								backgroundColor: mask[y][x]
+									? "var(--color-dark-pastel-green)"
+									: null,
+							}}
 							key={x}
 							onClick={handle_btn_clicked.bind(null, x, y)}
 						>
 							{item !== "empty" && item !== "mine" && mask[y][x] && (
 								<span>{item}</span>
 							)}
-							{item === "mine" && reveal && <FaBomb size="1.5rem" />}
+							{item === "mine" && reveal && (
+								<FaBomb
+									size="1.5rem"
+									color={reveal ? "var(--color-rich-black)" : null}
+								/>
+							)}
 						</button>
 					))}
 				</React.Fragment>
