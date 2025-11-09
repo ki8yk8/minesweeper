@@ -14,11 +14,11 @@ export default function Minesweeper({ level = "easy", onOver }) {
 	const [reveal, set_reveal] = useState(false);
 
 	function unravelCell(mask, x, y) {
-		if (mask[y][x] === false && mines_array[y][x] === "empty") {
+		if (mask[y][x] === false && mines_array[y][x] !== "mine") {
 			mask[y][x] = true;
 
 			get_neighbourhood(x, y, mask[0].length, mask.length).forEach(([a, b]) => {
-				unravelCell(mask, a, b);
+				mines_array[y][x] === "empty" && unravelCell(mask, a, b);
 			});
 		}
 	}
