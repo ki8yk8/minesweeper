@@ -1,0 +1,10 @@
+.minesweeper__row {
+	display: flex;
+	flex-direction: row;
+}
+
+.minesweeper__row__cell {
+	display: block;
+	width: 50px;
+	height: 50px;
+}
