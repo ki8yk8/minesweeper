@@ -24,12 +24,53 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 	}, [reset, level]);
 
 	useEffect(() => {
+		if (isGameWon(mask, mines_array)) {
+			onWin?.();
+		}
+	}, [mask]);
+
+	useEffect(() => {
 		if (game.powerups.length === 0) return;
 
 		const powerups = [...game.powerups];
 		const selected = powerups.pop();
-		set_powerup(selected);
-		set_game((prev) => ({ ...prev, powerups }));
+
+		if (selected === "Mine Detector") {
+			set_mask((prev) => {
+				const copied = structuredClone(prev);
+
+				// get the index of empty regions whose mask is false
+				const all_indexes = Array(copied.length)
+					.fill(null)
+					.map((_, i) => {
+						return Array(copied[0].length)
+							.fill(null)
+							.map((_, j) => [i, j]);
+					})
+					.flat();
+
+				const untouched_non_mines = all_indexes.filter(([x, y]) => {
+					if (copied[y][x]) return false;
+					if (mines_array[y][x] === "mine") return false;
+
+					return true;
+				});
+
+				if (untouched_non_mines.length > 0) {
+					const rnd_index = Math.floor(
+						Math.random() * untouched_non_mines.length
+					);
+					const [x, y] = untouched_non_mines[rnd_index];
+
+					copied[y][x] = true;
+				}
+
+				return copied;
+			});
+		} else {
+			set_powerup(selected);
+			set_game((prev) => ({ ...prev, powerups }));
+		}
 	}, [game.powerups]);
 
 	function unravelCell(mask, x, y) {
@@ -42,17 +83,10 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 		}
 	}
 
-	function isGameWon(mask, mines_array, current) {
-		const c_index = current[1] * mask[0].length + current[0];
-		const [x, y] = current;
-
+	function isGameWon(mask, mines_array) {
 		const flat_mask = mask.flat();
 
-		if (mines_array[y][x] === "mine") return false;
-
 		const untouched_non_mines = mines_array.flat().filter((item, index) => {
-			if (index === c_index) return false;
-
 			if (flat_mask[index]) return false;
 
 			if (item === "mine") return false;
@@ -65,10 +99,6 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 
 	const handle_btn_clicked = (x, y) => {
 		if (!active) return;
-
-		if (isGameWon(mask, mines_array, [x, y])) {
-			onWin?.();
-		}
 
 		if (powerup) {
 			switch (powerup) {
