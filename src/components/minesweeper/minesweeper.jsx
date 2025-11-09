@@ -40,7 +40,6 @@ export default function Minesweeper({ level = "easy", onWin, onLose }) {
 
 			return true;
 		});
-		console.log(untouched_non_mines);
 
 		return untouched_non_mines.length === 0;
 	}
@@ -48,7 +47,6 @@ export default function Minesweeper({ level = "easy", onWin, onLose }) {
 	const handle_btn_clicked = (x, y) => {
 		if (!active) return;
 		if (isGameWon(mask, mines_array, [x, y])) {
-			console.log("Game win");
 			onWin?.();
 		}
 

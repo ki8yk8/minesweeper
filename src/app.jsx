@@ -4,20 +4,44 @@ import Minesweeper from "./components/minesweeper/minesweeper";
 import Modal from "./ui/modals/modal";
 
 export default function App() {
-	const [gameover_msg, set_gameover_msg] = useState(false);
+	const [show_modal, set_show_modal] = useState({
+		gameover: false,
+		gamewin: false,
+	});
 
-	function handleGameOver() {
-		show_gameover(true);
+	function handleGameWin() {
+		set_show_modal((prev) => ({ ...prev, gamewin: true }));
+	}
+
+	function handleGameLose() {
+		set_show_modal((prev) => ({ ...prev, gameover: true }));
 	}
 
 	return (
 		<main className="game">
 			<h1>Minesweeper</h1>
 			<section className="game_wrapper">
-				<Minesweeper level="easy" />
+				<Minesweeper
+					level="easy"
+					onWin={handleGameWin}
+					onLose={handleGameLose}
+				/>
 			</section>
-			<Modal isOpen={gameover_msg} onClose={set_gameover_msg.bind(null, false)}>
-				Hello World
+			<Modal
+				isOpen={show_modal.gameover}
+				onClose={() => {
+					set_show_modal((prev) => ({ ...prev, gameover: false }));
+				}}
+			>
+				You stepped on a mine.
+			</Modal>
+			<Modal
+				isOpen={show_modal.gamewin}
+				onClose={() => {
+					set_show_modal((prev) => ({ ...prev, gamewin: false }));
+				}}
+			>
+				Congratulations! You Won
 			</Modal>
 		</main>
 	);
