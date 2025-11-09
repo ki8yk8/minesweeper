@@ -33,6 +33,13 @@ export default function App() {
 	function handleLevelChange(level) {
 		set_game((prev) => ({ ...prev, level }));
 	}
+	function handlePowerupBuy(powerup) {
+		if (powerup === "Extra Life") {
+			set_game((prev) => ({ ...prev, life: prev.life + 1 }));
+		} else {
+			set_game((prev) => ({ ...prev, powerups: [...prev.powerups, powerup] }));
+		}
+	}
 
 	return (
 		<>
@@ -87,7 +94,7 @@ export default function App() {
 								reset={game.reset}
 							/>
 						</div>
-						<PowerupBar />
+						<PowerupBar onBuy={handlePowerupBuy} />
 					</div>
 				</section>
 			</main>

@@ -1,6 +1,7 @@
 import { FaBomb } from "react-icons/fa";
 import createMinesweeper, {
 	createMask,
+	get_cross,
 	get_neighbourhood,
 } from "../../helpers/minesweeper";
 import "./style.css";
@@ -13,6 +14,7 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
 	const [reveal, set_reveal] = useState(false);
+	const [powerup, set_powerup] = useState(null);
 
 	useEffect(() => {
 		set_mines_array(createMinesweeper(level));
@@ -20,6 +22,15 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 		set_active(true);
 		set_reveal(false);
 	}, [reset, level]);
+
+	useEffect(() => {
+		if (game.powerups.length === 0) return;
+
+		const powerups = [...game.powerups];
+		const selected = powerups.pop();
+		set_powerup(selected);
+		set_game((prev) => ({ ...prev, powerups }));
+	}, [game.powerups]);
 
 	function unravelCell(mask, x, y) {
 		if (mask[y][x] === false && mines_array[y][x] !== "mine") {
@@ -58,6 +69,39 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 		if (isGameWon(mask, mines_array, [x, y])) {
 			onWin?.();
 		}
+
+		if (powerup) {
+			switch (powerup) {
+				case "Radar Pulse":
+					set_mask((prev) => {
+						const copied = structuredClone(prev);
+						copied[y][x] = true;
+
+						get_neighbourhood(x, y).forEach(([i, j]) => {
+							copied[j][i] = true;
+						});
+
+						return copied;
+					});
+					break;
+
+				case "Reveal Cross":
+					set_mask((prev) => {
+						const copied = structuredClone(prev);
+						get_cross(x, y, mask[0].length, mask.length).forEach(([i, j]) => {
+							copied[j][i] = true;
+						});
+
+						return copied;
+					});
+					break;
+
+				default:
+					break;
+			}
+			set_powerup(null);
+		}
+
 		if (mines_array[y][x] === "mine") {
 			if (game.life === 0) {
 				onLose?.();
@@ -87,7 +131,7 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 
 	return (
 		<section
-			className="minesweeper"
+			className={`minesweeper ${powerup ? "minesweeper--powered" : ""}`}
 			style={{
 				gridTemplateColumns: `repeat(${mines_array[0].length}, 50px)`,
 				gridTemplateRows: `repeat(${mines_array.length}, 50px)`,

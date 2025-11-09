@@ -47,6 +47,19 @@ export function get_neighbourhood(x, y, width, height) {
 	return sort_coordinate(filtered_neighbours);
 }
 
+export function get_cross(x, y, width, height) {
+	const cross_items = [];
+
+	for (let i = 0; i < width; i++) {
+		cross_items.push([i, y]);
+	}
+	for (let i = 0; i < height; i++) {
+		cross_items.push([x, i]);
+	}
+
+	return cross_items;
+}
+
 // minesweeper cell types = "empty", "mine", <1, 2, ...>
 export default function createMinesweeper(difficulty, debug = false) {
 	const { width, height, mines } = DIFFICULTY_MAP[difficulty];
