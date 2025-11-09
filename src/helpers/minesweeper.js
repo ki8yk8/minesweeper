@@ -67,6 +67,24 @@ export default function createMinesweeper(
 	debug = false
 ) {
 	const { width, height, mines } = DIFFICULTY_MAP[difficulty];
+	let omit_cells = rnd_index ? [rnd_index] : [];
+
+	// explore the neighbour of each omit_cells twice
+	for (let i = 0; i < 2; i++) {
+		const updated_omit_cells = [...omit_cells];
+
+		omit_cells.forEach((index) => {
+			const [x, y] = [index % width, Math.floor(index / width)];
+			get_neighbourhood(x, y, width, height).forEach(([i, j]) => {
+				const pos = j * width + i;
+				if (!updated_omit_cells.includes(pos)) {
+					updated_omit_cells.push(pos);
+				}
+			});
+		});
+
+		omit_cells = [...updated_omit_cells];
+	}
 
 	const mines_array = Array(height)
 		.fill(null)
@@ -76,7 +94,7 @@ export default function createMinesweeper(
 	while (random_indices.length < mines) {
 		const rnd = Math.floor(Math.random() * width * height);
 
-		if (random_indices.includes(rnd) || rnd === rnd_index) continue;
+		if (random_indices.includes(rnd) || omit_cells.includes(rnd)) continue;
 		random_indices.push(rnd);
 	}
 	const random_indices_2d = random_indices.map((index) => [
