@@ -6,7 +6,7 @@ export default function App() {
 		<main className="game">
 			<h1>Minesweeper</h1>
 			<section className="game_wrapper">
-				<Minesweeper level="hard" />
+				<Minesweeper level="easy" />
 			</section>
 		</main>
 	);

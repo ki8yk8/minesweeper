@@ -1,0 +1,13 @@
+:root {
+	--color-rich-black: #011627;
+	--color-baby-powder: #fdfffc;
+	--color-light-sea-green: #2ec4b6;
+	--color-red-pantone: #e71d36;
+	--color-orange-peel: #ff9f1c;
+	--color-dark-pastel-green: #20bf55;
+	--color-medium-slate-blue: #7765e3;
+}
+
+.u-color-red-pantone {
+	color: var(--color-red-pantone);
+}

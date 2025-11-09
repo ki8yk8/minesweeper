@@ -1,0 +1,76 @@
+.u-font-poppins {
+	font-family: "Poppins", sans-serif;
+}
+.u-font-emoji {
+	font-family: "Noto Emoji", sans-serif;
+	font-optical-sizing: auto;
+}
+
+.u-font-weight-normal {
+	font-weight: 400;
+}
+.u-font-weight-light {
+	font-weight: 300;
+}
+.u-font-weight-extra-light {
+	font-weight: 200;
+}
+.u-font-weight-medium {
+	font-weight: 500;
+}
+.u-font-weight-semi-bold {
+	font-weight: 600;
+}
+.u-font-weight-bold {
+	font-weight: 700;
+}
+.u-font-weight-extra-bold {
+	font-weight: 800;
+}
+
+.u-uppercase {
+	text-transform: uppercase;
+}
+.u-capitalize {
+	text-transform: capitalize;
+}
+.u-text-center {
+	display: block;
+	text-align: center;
+}
+
+h1 {
+	font-size: 2.5rem;
+	line-height: 2.75rem;
+	font-weight: 700;
+}
+h2 {
+	font-size: 2.25rem;
+	line-height: 2.5rem;
+	font-weight: 700;
+}
+h3 {
+	font-size: 1.75rem;
+	line-height: 2rem;
+	font-weight: 600;
+}
+h4,
+h5 {
+	font-size: 1.5rem;
+	line-height: 1.75rem;
+	font-weight: 500;
+}
+h6 {
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+	font-weight: 400;
+}
+p {
+	font-size: 1rem;
+	line-height: 1.1rem;
+	font-size: 1rem;
+}
+small {
+	font-size: 0.8rem;
+	line-height: 1rem;
+}
