@@ -6,6 +6,7 @@ import Controls from "./components/controls/controls";
 import { CoinContext } from "./contexts/coin-context";
 import { DIFFICULTY_MAP } from "./helpers/minesweeper";
 import { PiCoinBold } from "react-icons/pi";
+import PowerupBar from "./ui/powerup-bar/powerup-bar";
 
 export default function App() {
 	const [show_modal, set_show_modal] = useState({
@@ -80,9 +81,7 @@ export default function App() {
 								reset={reset}
 							/>
 						</div>
-						<aside>
-							<p>Powerups</p>
-						</aside>
+						<PowerupBar />
 					</div>
 				</section>
 			</main>
@@ -103,9 +102,7 @@ export default function App() {
 					>
 						OOPS!
 					</h3>
-					<p className="u-text-center" style={{ paddingBottom: "2rem" }}>
-						You stepped on a mine.
-					</p>
+					<p className="u-text-center">You stepped on a mine.</p>
 				</>
 			</Modal>
 			<Modal
@@ -124,7 +121,7 @@ export default function App() {
 					>
 						Congratulations!
 					</h3>
-					<p className="u-text-center" style={{ paddingBottom: "2rem" }}>
+					<p className="u-text-center">
 						You Won:{" "}
 						<span
 							style={{ color: "var(--color-orange-peel)" }}

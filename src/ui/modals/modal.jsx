@@ -24,6 +24,7 @@ export default function Modal({ isOpen, onClose, children }) {
 					width: 500,
 					border: "2px solid var(--color-rich-black)",
 					padding: "0.5rem 1rem",
+					paddingBottom: "2rem",
 				}}
 			>
 				<header style={{ display: "flex", justifyContent: "flex-end" }}>
