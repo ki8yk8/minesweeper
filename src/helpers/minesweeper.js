@@ -1,4 +1,4 @@
-const DIFFICULTY_MAP = {
+export const DIFFICULTY_MAP = {
 	easy: {
 		height: 9,
 		width: 9,
@@ -17,12 +17,35 @@ const DIFFICULTY_MAP = {
 };
 
 // minesweeper cell types = "empty", "mine", <1, 2, ...>
-export function createMinesweeper(difficulty) {
+export default function createMinesweeper(difficulty, debug = false) {
 	const { width, height, mines } = DIFFICULTY_MAP[difficulty];
 
 	const mines_array = Array(height)
 		.fill(null)
 		.map((_) => Array(width).fill("empty"));
+
+	const random_indices = [];
+	while (random_indices.length < mines) {
+		const rnd = Math.floor(Math.random() * width * height);
+
+		if (random_indices.includes(rnd)) continue;
+		random_indices.push(rnd);
+	}
+	const random_indices_2d = random_indices.map((index) => [
+		Math.floor(index / width),
+		index % width,
+	]);
+
+	if (debug) {
+		return {
+			random_indices,
+			random_indices_2d,
+			width,
+			height,
+			mines,
+			mines_array,
+		};
+	}
 
 	return mines_array;
 }
