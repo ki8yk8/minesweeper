@@ -26,7 +26,7 @@ export default function App() {
 	}
 
 	return (
-		<main className="game">
+		<>
 			<header
 				style={{
 					display: "flex",
@@ -34,7 +34,7 @@ export default function App() {
 					alignItems: "flex-end",
 				}}
 			>
-				<h1>Minesweeper</h1>
+				<h1 style={{ color: "var(--color-medium-slate-blue)" }}>Mines2.0</h1>
 				<p
 					className="u-font-weight-semi-bold"
 					style={{ color: "var(--color-orange-peel)" }}
@@ -42,15 +42,45 @@ export default function App() {
 					Coins: {coins}
 				</p>
 			</header>
-			<section className="game_wrapper">
-				<Controls onRestart={handleGameRestart} />
-				<Minesweeper
-					level="easy"
-					onWin={handleGameWin}
-					onLose={handleGameLose}
-					reset={reset}
-				/>
-			</section>
+
+			<main>
+				<section
+					className="game"
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						overflow: "hidden",
+						height: "100%",
+						gap: "1rem",
+					}}
+				>
+					<Controls onRestart={handleGameRestart} />
+
+					<div
+						style={{
+							flexGrow: 1,
+							overflow: "hidden",
+							display: "flex",
+							width: "100%",
+							justifyContent: "space-around",
+						}}
+					>
+						<div style={{ overflow: "auto" }}>
+							<Minesweeper
+								level="easy"
+								onWin={handleGameWin}
+								onLose={handleGameLose}
+								reset={reset}
+							/>
+						</div>
+						<aside>
+							<p>Powerups</p>
+						</aside>
+					</div>
+				</section>
+			</main>
+
 			<Modal
 				isOpen={show_modal.gameover}
 				onClose={() => {
@@ -67,6 +97,6 @@ export default function App() {
 			>
 				Congratulations! You Won
 			</Modal>
-		</main>
+		</>
 	);
 }
