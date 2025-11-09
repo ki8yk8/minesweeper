@@ -16,6 +16,10 @@ export const DIFFICULTY_MAP = {
 	},
 };
 
+export function get_neighbourhood(x, y, width, height) {
+	return [];
+}
+
 // minesweeper cell types = "empty", "mine", <1, 2, ...>
 export default function createMinesweeper(difficulty, debug = false) {
 	const { width, height, mines } = DIFFICULTY_MAP[difficulty];
@@ -35,6 +39,10 @@ export default function createMinesweeper(difficulty, debug = false) {
 		Math.floor(index / width),
 		index % width,
 	]);
+
+	random_indices_2d.forEach((index) => {
+		mines_array[index[0]][index[1]] = "mine";
+	});
 
 	if (debug) {
 		return {

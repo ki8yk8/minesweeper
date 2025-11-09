@@ -1,5 +1,8 @@
 import { describe, expect, test } from "vitest";
-import createMinesweeper, { DIFFICULTY_MAP } from "../helpers/minesweeper";
+import createMinesweeper, {
+	DIFFICULTY_MAP,
+	get_neighbourhood,
+} from "../helpers/minesweeper";
 
 describe("Minesweeper Tests", () => {
 	test("Height and width should change based on difficulty", () => {
@@ -20,11 +23,11 @@ describe("Minesweeper Tests", () => {
 	});
 
 	test("Indices of mines should not be repeated", () => {
-		const {random_indices_2d} = createMinesweeper("hard", true);
+		const { random_indices_2d } = createMinesweeper("hard", true);
 
 		let is_unique = true;
 		random_indices_2d.forEach((item, index) => {
-			for (let i=0; i<random_indices_2d.length; i++) {
+			for (let i = 0; i < random_indices_2d.length; i++) {
 				const a_item = random_indices_2d[i];
 
 				if (index !== i && item[0] === a_item[0] && item[1] === a_item[1]) {
@@ -34,10 +37,40 @@ describe("Minesweeper Tests", () => {
 
 				if (!is_unique) break;
 			}
-		})
+		});
 
 		expect(is_unique).toBe(true);
-	})
+	});
+
+	test("Get neighbourhood should work in all cases", () => {
+		const [width, height] = [10, 10];
+		const case1 = {
+			input: [5, 5],
+			output: [
+				[5, 4],
+				[4, 4],
+				[4, 5],
+				[4, 6],
+				[5, 6],
+				[6, 6],
+				[6, 5],
+				[6, 4],
+			],
+		};
+
+		expect(get_neighbourhood(...case1.input, width, height)).toEqual(case1.output);
+
+		const case2 = {
+			input: [0, 0],
+			output: [
+				[1, 0],
+				[1, 1],
+				[0, 1],
+			],
+		};
+
+		expect(get_neighbourhood(...case2.input, width, height)).toEqual(case2.output);
+	});
 
 	test.todo("Around mines there should be number");
 });
