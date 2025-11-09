@@ -104,3 +104,13 @@ export default function createMinesweeper(difficulty, debug = false) {
 
 	return mines_array;
 }
+
+export function createMask(difficulty) {
+	const { width, height } = DIFFICULTY_MAP[difficulty];
+
+	const masks = Array(height)
+		.fill(null)
+		.map((_) => Array(width).fill(false));
+
+	return masks;
+}
