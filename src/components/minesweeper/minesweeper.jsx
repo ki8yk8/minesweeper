@@ -4,10 +4,11 @@ import createMinesweeper, {
 	get_neighbourhood,
 } from "../../helpers/minesweeper";
 import "./style.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { GameContext } from "../../contexts/game-context";
 
-// mines type mine, empty, 1...8,
 export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
+	const { game, set_game } = useContext(GameContext);
 	const [mines_array, set_mines_array] = useState(createMinesweeper(level));
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
@@ -58,9 +59,14 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 			onWin?.();
 		}
 		if (mines_array[y][x] === "mine") {
-			onLose?.();
-			set_active(false);
-			set_reveal(true);
+			if (game.life === 0) {
+				onLose?.();
+				set_active(false);
+				set_reveal(true);
+			} else {
+				set_game((prev) => ({ ...prev, life: prev.life - 1 }));
+			}
+			
 			return;
 		}
 
