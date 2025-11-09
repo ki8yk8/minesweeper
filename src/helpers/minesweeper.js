@@ -68,11 +68,28 @@ export default function createMinesweeper(difficulty, debug = false) {
 	]);
 
 	random_indices_2d.forEach((index) => {
-		mines_array[index[0]][index[1]] = "mine";
+		mines_array[index[1]][index[0]] = "mine";
 	});
 
 	// assgining the numbers
-	random_indices_2d.forEach((index) => {});
+	random_indices_2d.forEach((index) => {
+		if (mines_array[index[1]][index[0]] !== "mine") return;
+
+		const neighbours = get_neighbourhood(...index, width, height);
+		neighbours.forEach(([x, y]) => {
+			switch (mines_array[y][x]) {
+				case "empty":
+					mines_array[y][x] = 1;
+					break;
+
+				case "mine":
+					break;
+
+				default:
+					mines_array[y][x] += 1;
+			}
+		});
+	});
 
 	if (debug) {
 		return {
