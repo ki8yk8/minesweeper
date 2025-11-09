@@ -66,8 +66,6 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 			} else {
 				set_game((prev) => ({ ...prev, life: prev.life - 1 }));
 			}
-			
-			return;
 		}
 
 		set_mask((prev) => {
@@ -111,11 +109,8 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 							{item !== "empty" && item !== "mine" && mask[y][x] && (
 								<span>{item}</span>
 							)}
-							{item === "mine" && reveal && (
-								<FaBomb
-									size="1.5rem"
-									color={reveal ? "var(--color-rich-black)" : null}
-								/>
+							{item === "mine" && (reveal || mask[y][x]) && (
+								<FaBomb size="1.5rem" color="var(--color-rich-black)" />
 							)}
 						</button>
 					))}
