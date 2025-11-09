@@ -5,7 +5,6 @@ import Modal from "./ui/modals/modal";
 import Controls from "./components/controls/controls";
 import { CoinContext } from "./contexts/coin-context";
 import { DIFFICULTY_MAP } from "./helpers/minesweeper";
-import { BsCoin } from "react-icons/bs";
 import { PiCoinBold } from "react-icons/pi";
 
 export default function App() {
@@ -94,7 +93,20 @@ export default function App() {
 					set_show_modal((prev) => ({ ...prev, gameover: false }));
 				}}
 			>
-				You stepped on a mine.
+				<>
+					<h3
+						className="u-text-center"
+						style={{
+							color: "var(--color-red-pantone)",
+							marginBottom: "0.5rem",
+						}}
+					>
+						OOPS!
+					</h3>
+					<p className="u-text-center" style={{ paddingBottom: "2rem" }}>
+						You stepped on a mine.
+					</p>
+				</>
 			</Modal>
 			<Modal
 				isOpen={show_modal.gamewin}
