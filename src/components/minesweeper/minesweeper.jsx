@@ -4,14 +4,21 @@ import createMinesweeper, {
 	get_neighbourhood,
 } from "../../helpers/minesweeper";
 import "./style.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // mines type mine, empty, 1...8,
-export default function Minesweeper({ level = "easy", onWin, onLose }) {
+export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 	const [mines_array, set_mines_array] = useState(createMinesweeper(level));
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
 	const [reveal, set_reveal] = useState(false);
+
+	useEffect(() => {
+		set_mines_array(createMinesweeper(level));
+		set_mask(createMask(level));
+		set_active(true);
+		set_reveal(false);
+	}, [reset]);
 
 	function unravelCell(mask, x, y) {
 		if (mask[y][x] === false && mines_array[y][x] !== "mine") {
