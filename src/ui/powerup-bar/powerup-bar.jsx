@@ -1,10 +1,19 @@
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { POWERUPS } from "../../helpers/powerups";
 import Modal from "../modals/modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CoinContext } from "../../contexts/coin-context";
 
-export default function PowerupBar() {
+export default function PowerupBar({ onBuy }) {
 	const [modal, set_modal] = useState(null);
+	const { coins, set_coins } = useContext(CoinContext);
+
+	function handleBuyPowerup(powerup) {
+		if (coins >= POWERUPS[powerup].coin) {
+			onBuy?.(powerup);
+			set_coins((prev) => prev - POWERUPS[powerup].coin);
+		}
+	}
 
 	return (
 		<aside
@@ -51,9 +60,12 @@ export default function PowerupBar() {
 							</button>
 							<button
 								style={{ width: "100%", textAlign: "left" }}
+								onClick={handleBuyPowerup.bind(null, item)}
 							>
-								<p style={{fontSize: "0.8rem"}}>{item}</p>
-								<small style={{display: "block", fontSize: "0.6rem"}}>-{POWERUPS[item].coin} coins</small>
+								<p style={{ fontSize: "0.8rem" }}>{item}</p>
+								<small style={{ display: "block", fontSize: "0.6rem" }}>
+									-{POWERUPS[item].coin} coins
+								</small>
 							</button>
 						</div>
 					))}
