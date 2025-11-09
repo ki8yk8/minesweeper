@@ -16,8 +16,35 @@ export const DIFFICULTY_MAP = {
 	},
 };
 
+export function sort_coordinate(coords) {
+	return coords.sort(([x1, y1], [x2, y2]) => {
+		if (x1 === x2) return y1 - y2;
+		return x1 - x2;
+	});
+}
+
 export function get_neighbourhood(x, y, width, height) {
-	return [];
+	const neighbours = [
+		[x - 1, y],
+		[x - 1, y - 1],
+		[x, y - 1],
+		[x + 1, y - 1],
+		[x + 1, y],
+		[x + 1, y + 1],
+		[x, y + 1],
+		[x - 1, y + 1],
+	];
+
+	const filtered_neighbours = neighbours.filter((index) => {
+		const [x, y] = index;
+		if (x < 0 || y < 0 || x >= width || y >= height) {
+			return false;
+		}
+
+		return true;
+	});
+
+	return sort_coordinate(filtered_neighbours);
 }
 
 // minesweeper cell types = "empty", "mine", <1, 2, ...>
@@ -43,6 +70,9 @@ export default function createMinesweeper(difficulty, debug = false) {
 	random_indices_2d.forEach((index) => {
 		mines_array[index[0]][index[1]] = "mine";
 	});
+
+	// assgining the numbers
+	random_indices_2d.forEach((index) => {});
 
 	if (debug) {
 		return {

@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import createMinesweeper, {
 	DIFFICULTY_MAP,
 	get_neighbourhood,
+	sort_coordinate,
 } from "../helpers/minesweeper";
 
 describe("Minesweeper Tests", () => {
@@ -46,7 +47,7 @@ describe("Minesweeper Tests", () => {
 		const [width, height] = [10, 10];
 		const case1 = {
 			input: [5, 5],
-			output: [
+			output: sort_coordinate([
 				[5, 4],
 				[4, 4],
 				[4, 5],
@@ -55,18 +56,18 @@ describe("Minesweeper Tests", () => {
 				[6, 6],
 				[6, 5],
 				[6, 4],
-			],
+			]),
 		};
 
 		expect(get_neighbourhood(...case1.input, width, height)).toEqual(case1.output);
 
 		const case2 = {
 			input: [0, 0],
-			output: [
+			output: sort_coordinate([
 				[1, 0],
 				[1, 1],
 				[0, 1],
-			],
+			]),
 		};
 
 		expect(get_neighbourhood(...case2.input, width, height)).toEqual(case2.output);
