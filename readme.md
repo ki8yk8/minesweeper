@@ -16,7 +16,7 @@ With the coins collected, you can use one or more of the following powerups;
 
 ## Demo
 
-Upload Video from GitHub
+https://github.com/user-attachments/assets/52bdd822-87dd-472d-ac08-cfdc897ed02a
 
 ## TechStack Used
 
