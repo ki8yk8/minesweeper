@@ -68,6 +68,7 @@ function ToastContainer({ toasts, onClose }) {
 		>
 			{toasts.map(({ id, message, type, duration }) => (
 				<Toast
+					key={id}
 					message={message}
 					type={type}
 					duration={duration}

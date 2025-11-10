@@ -3,8 +3,11 @@ import { POWERUPS } from "../../helpers/powerups";
 import Modal from "../modals/modal";
 import { useContext, useState } from "react";
 import { CoinContext } from "../../contexts/coin-context";
+import useToast from "../../hooks/use-toast";
 
 export default function PowerupBar({ onBuy }) {
+	const toaster = useToast();
+
 	const [modal, set_modal] = useState(null);
 	const { coins, set_coins } = useContext(CoinContext);
 
@@ -12,6 +15,8 @@ export default function PowerupBar({ onBuy }) {
 		if (coins >= POWERUPS[powerup].coin) {
 			onBuy?.(powerup);
 			set_coins((prev) => prev - POWERUPS[powerup].coin);
+		} else {
+			toaster.push({ message: "You donot have enough coins" });
 		}
 	}
 
