@@ -1,0 +1,8 @@
+.toast {
+	padding: 0.5rem 1rem;
+}
+
+.toast--info {
+	background-color: var(--color-dark-pastel-green);
+	color: var(--color-baby-powder);
+}

@@ -5,13 +5,15 @@ export default function ToastContainer({ toasts, onClose }) {
 		<section
 			style={{
 				position: "fixed",
-				height: "100vh",
-				top: 0,
+				maxHeight: "100vh",
+				bottom: 0,
 				left: 0,
 				width: "500px",
 				display: "flex",
 				flexDirection: "column",
-				gap: "1rem",
+				gap: "0.25rem",
+				overflow: "hidden",
+				padding: "1rem 2rem",
 			}}
 		>
 			{toasts.map(({ id, message, type, duration }) => (
