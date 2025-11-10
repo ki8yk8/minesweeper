@@ -26,6 +26,7 @@ export default function PowerupBar({ onBuy }) {
 			style={{
 				border: "2px solid var(--color-rich-black)",
 				padding: "1rem",
+				overflow: "scroll"
 			}}
 		>
 			{modal && (

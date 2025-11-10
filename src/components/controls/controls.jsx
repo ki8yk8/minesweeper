@@ -20,7 +20,7 @@ export default function Controls() {
 	}
 
 	return (
-		<nav style={{ display: "flex", alignItems: "flex-end", gap: "1rem" }}>
+		<nav style={{ display: "flex", alignItems: "flex-end", gap: "1rem"}}>
 			<div
 				style={{
 					display: "flex",
