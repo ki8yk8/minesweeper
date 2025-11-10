@@ -1,4 +1,5 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useRef, useState } from "react";
+import ToastContainer from "../components/toast/toast-container";
 import { createPortal } from "react-dom";
 
 export const ToastContext = createContext({
@@ -37,45 +38,5 @@ export function ToastContextProvider({ children }) {
 				document.getElementById("toaster-root")
 			)}
 		</ToastContext.Provider>
-	);
-}
-
-function Toast({ id, message, type, duration, onClose }) {
-	useEffect(() => {
-		const toast_timeout = setTimeout(() => {
-			onClose?.(id);
-		}, duration * 1000);
-
-		return () => clearTimeout(toast_timeout);
-	}, []);
-
-	return <div className={`toast toast--${type}`}>{message}</div>;
-}
-
-function ToastContainer({ toasts, onClose }) {
-	return (
-		<section
-			style={{
-				position: "fixed",
-				height: "100vh",
-				top: 0,
-				left: 0,
-				width: "500px",
-				display: "flex",
-				flexDirection: "column",
-				gap: "1rem",
-			}}
-		>
-			{toasts.map(({ id, message, type, duration }) => (
-				<Toast
-					key={id}
-					message={message}
-					type={type}
-					duration={duration}
-					id={id}
-					onClose={onClose}
-				/>
-			))}
-		</section>
 	);
 }
