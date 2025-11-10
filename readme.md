@@ -23,3 +23,6 @@ https://github.com/user-attachments/assets/52bdd822-87dd-472d-ac08-cfdc897ed02a
 1. React
 2. Vite
 3. Icons from `npm install react-icons`
+
+### Gift
+Press the logo of Mines2.0 5times to get 50 coins for free. Enjoy
