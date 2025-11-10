@@ -4,6 +4,7 @@ import "./stylesheets/reset.css";
 import "./stylesheets/colors.css";
 import "./stylesheets/typography.css";
 import "./stylesheets/component.css";
+import "./stylesheets/scrollbar.css";
 import "./index.css";
 import App from "./app.jsx";
 import { CoinContextProvider } from "./contexts/coin-context.jsx";

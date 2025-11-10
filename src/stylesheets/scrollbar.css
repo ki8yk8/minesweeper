@@ -1,0 +1,26 @@
+::-webkit-scrollbar {
+	height: 8px;
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: var(--color-baby-powder);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--color-rich-black);
+	border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-medium-slate-blue);
+}
+
+::-webkit-scrollbar-button {
+	display: none;
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-rich-black) var(--color-baby-powder);
+}
