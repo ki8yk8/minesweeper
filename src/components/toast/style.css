@@ -4,8 +4,6 @@
 	padding: 0.4rem 0.8rem;
 	display: flex;
 	flex-direction: row;
-	gap: 1rem;
-	justify-content: space-between;
 	align-items: center;
 	border: 2px solid var(--color-rich-black);
 }

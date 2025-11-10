@@ -28,10 +28,19 @@ export default function Toast({ id, message, type, duration, onClose }) {
 
 	return (
 		<div className={`toast toast--${type}`}>
-			<div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
-				<Icon />
-				<p style={{ fontSize: "0.8rem", fontWeight: 300 }}>{message}</p>
+			<div style={{ width: "2rem", display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
+				<Icon size="1.2rem" />
 			</div>
+			<p
+				style={{
+					fontSize: "0.8rem",
+					fontWeight: 300,
+					flexGrow: 1,
+					marginRight: "0.4rem",
+				}}
+			>
+				{message}
+			</p>
 			<button className="u-plain" onClick={() => onClose?.(id)}>
 				<IoMdCloseCircleOutline />
 			</button>
