@@ -1,8 +1,25 @@
 .toast {
-	padding: 0.5rem 1rem;
+	background-color: var(--color-baby-powder);
+	color: var(--color-rich-black);
+	padding: 0.4rem 0.8rem;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+	border: 2px solid var(--color-rich-black);
 }
 
-.toast--info {
+.toast.toast--info {
 	background-color: var(--color-dark-pastel-green);
 	color: var(--color-baby-powder);
+}
+
+.toast.toast--error {
+	background-color: var(--color-red-pantone);
+	color: var(--color-baby-powder);
+}
+
+.toast.toast--warn {
+	background-color: var(--color-orange-peel);
 }
