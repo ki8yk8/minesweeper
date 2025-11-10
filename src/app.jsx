@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import "./app.css";
 import Minesweeper from "./components/minesweeper/minesweeper";
 import Modal from "./ui/modals/modal";
@@ -8,6 +8,7 @@ import { DIFFICULTY_MAP } from "./helpers/minesweeper";
 import { PiCoinBold } from "react-icons/pi";
 import PowerupBar from "./ui/powerup-bar/powerup-bar";
 import { GameContext } from "./contexts/game-context";
+import useToast from "./hooks/use-toast";
 
 export default function App() {
 	const [show_modal, set_show_modal] = useState({
@@ -16,6 +17,8 @@ export default function App() {
 	});
 	const { coins, set_coins } = useContext(CoinContext);
 	const { game, set_game } = useContext(GameContext);
+	const toaster = useToast();
+	const secret_clicked = useRef(0);
 
 	function handleGameWin() {
 		const bombs = DIFFICULTY_MAP[game.level].mines;
@@ -35,6 +38,25 @@ export default function App() {
 		}
 	}
 
+	function handleSecretClicked() {
+		++secret_clicked.current;
+
+		if (secret_clicked.current >= 3 && secret_clicked.current < 5) {
+			toaster.push({
+				message:
+					`You are ${5-secret_clicked.current} clicks away from getting a gift.`,
+				type: "info",
+			});
+		} else if (secret_clicked.current === 5) {
+			set_coins((prev) => prev + 50);
+			toaster.push({
+				message:
+					"You read the entire readme.md so, here is your 50 coins gift.",
+				type: "gift",
+			});
+		}
+	}
+
 	return (
 		<>
 			<header
@@ -44,7 +66,9 @@ export default function App() {
 					alignItems: "flex-end",
 				}}
 			>
-				<h1 style={{ color: "var(--color-medium-slate-blue)" }}>Mines2.0</h1>
+				<button onClick={handleSecretClicked} className="u-plain">
+					<h1 style={{ color: "var(--color-medium-slate-blue)" }}>Mines2.0</h1>
+				</button>
 				<p
 					className="u-font-weight-semi-bold"
 					style={{ color: "var(--color-orange-peel)" }}
