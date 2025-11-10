@@ -38,7 +38,7 @@ export default function Controls() {
 				<div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
 					<button onClick={handleIncrement.bind(null, -1)}>-</button>
 					<div>
-						{Array(game.level)
+						{Array(Object.keys(DIFFICULTY_MAP).indexOf(game.level)+1)
 							.fill(null)
 							.map((_, index) => (
 								<span key={index} className="u-font-emoji">

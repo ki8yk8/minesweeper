@@ -16,7 +16,7 @@ export default function PowerupBar({ onBuy }) {
 			onBuy?.(powerup);
 			set_coins((prev) => prev - POWERUPS[powerup].coin);
 		} else {
-			toaster.push({ message: "You donot have enough coins" });
+			toaster.push({ message: "You donot have enough coins", type: "error" });
 		}
 	}
 
