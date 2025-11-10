@@ -9,6 +9,7 @@ import { PiCoinBold } from "react-icons/pi";
 import PowerupBar from "./ui/powerup-bar/powerup-bar";
 import { GameContext } from "./contexts/game-context";
 import useToast from "./hooks/use-toast";
+import HelpButton from "./ui/help/help";
 
 export default function App() {
 	const [show_modal, set_show_modal] = useState({
@@ -43,8 +44,9 @@ export default function App() {
 
 		if (secret_clicked.current >= 3 && secret_clicked.current < 5) {
 			toaster.push({
-				message:
-					`You are ${5-secret_clicked.current} clicks away from getting a gift.`,
+				message: `You are ${
+					5 - secret_clicked.current
+				} clicks away from getting a gift.`,
 				type: "info",
 			});
 		} else if (secret_clicked.current === 5) {
@@ -113,6 +115,8 @@ export default function App() {
 					</div>
 				</section>
 			</main>
+			
+			<HelpButton />
 
 			<Modal
 				isOpen={show_modal.gameover}
