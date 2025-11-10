@@ -8,12 +8,15 @@ import "./index.css";
 import App from "./app.jsx";
 import { CoinContextProvider } from "./contexts/coin-context.jsx";
 import { GameContextProvider } from "./contexts/game-context.jsx";
+import { ToastContextProvider } from "./contexts/toast-context.jsx";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<GameContextProvider>
 			<CoinContextProvider>
-				<App />
+				<ToastContextProvider>
+					<App />
+				</ToastContextProvider>
 			</CoinContextProvider>
 		</GameContextProvider>
 	</StrictMode>
