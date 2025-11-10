@@ -52,7 +52,7 @@ export default function Controls() {
 
 			<button
 				onClick={() =>
-					set_game((prev) => ({ ...prev, restart: !prev.restart }))
+					set_game((prev) => ({ ...prev, reset: !prev.reset }))
 				}
 			>
 				<VscDebugRestart />

@@ -7,9 +7,11 @@ import createMinesweeper, {
 import "./style.css";
 import React, { useContext, useEffect, useState } from "react";
 import { GameContext } from "../../contexts/game-context";
+import useToast from "../../hooks/use-toast";
 
 export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 	const { game, set_game } = useContext(GameContext);
+	const toaster = useToast();
 	const [mines_array, set_mines_array] = useState(createMinesweeper(level));
 	const [mask, set_mask] = useState(createMask(level));
 	const [active, set_active] = useState(true);
@@ -98,7 +100,13 @@ export default function Minesweeper({ level = "easy", reset, onWin, onLose }) {
 	}
 
 	const handle_btn_clicked = (x, y) => {
-		if (!active) return;
+		if (!active) {
+			toaster.push({
+				message: "Restart the game to play",
+				type: "info",
+			});
+			return;
+		}
 
 		if (powerup) {
 			switch (powerup) {
